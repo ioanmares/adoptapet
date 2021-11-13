@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { computed } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 export default {
   name: "Input",
   props: {
@@ -57,10 +57,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    error: {
-      type: String,
-      default: "",
-    },
     modelValue: {
       type: [Number, String],
     },
@@ -73,8 +69,18 @@ export default {
       },
     });
 
+    const error = ref("");
+
+    const validate = () => {
+      const errorMessage = "Please fill out the required field";
+
+      error.value = !inputValue.value && props.required ? errorMessage : "";
+    };
+
     return {
       inputValue,
+      error,
+      validate,
     };
   },
 };

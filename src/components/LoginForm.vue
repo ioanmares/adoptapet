@@ -3,21 +3,21 @@
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <div class="mb-8">
         <Input
-          ref="inputRef"
+          :ref="setItemRef"
           name="username"
           placeholder="Username"
           label="Username"
-          v-model="state.username.value"
-          :error="state.username.error"
+          required
+          v-model="state.username"
         />
         <Input
-          ref="inputRef"
+          :ref="setItemRef"
           name="password"
           type="password"
           placeholder="******************"
           label="Password"
-          v-model="state.password.value"
-          :error="state.password.error"
+          required
+          v-model="state.password"
         />
       </div>
       <div class="flex items-center justify-between">
@@ -66,28 +66,26 @@ export default {
   },
   setup: () => {
     const state = reactive({
-      username: {
-        value: "",
-        error: "",
-      },
-      password: {
-        value: "",
-        error: "",
-      },
+      username: "",
+      password: "",
+      refs: [],
     });
+
+    const setItemRef = (el) => {
+      if (el) {
+        state.refs.push(el);
+      }
+    };
 
     const handleSignIn = (e) => {
       e.preventDefault();
-
-      const errorMessage = "Please fill out the required field.";
-
-      state.username.error = !state.username.value ? errorMessage : "";
-      state.password.error = !state.password.value ? errorMessage : "";
+      state.refs.forEach((itemRef) => itemRef.validate());
     };
 
     return {
       state,
       handleSignIn,
+      setItemRef,
     };
   },
 };
