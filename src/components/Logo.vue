@@ -21,6 +21,7 @@
 import { icons } from "../assets/icons";
 
 export default {
+  name: "Logo",
   props: {
     animate: {
       type: Boolean,
