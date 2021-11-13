@@ -9,8 +9,8 @@
 <script>
 import { watch, ref, provide } from "vue";
 
-import BaseLayout from "@/components/BaseLayout";
-import Layout from "@/components/Layout";
+import BaseLayout from "@/layout/BaseLayout";
+import Layout from "@/layout/Layout";
 
 export default {
   name: "App",

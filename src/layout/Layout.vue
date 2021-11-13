@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import BaseLayout from "@/components/BaseLayout";
-import Logo from "./Logo.vue";
+import BaseLayout from "@/layout/BaseLayout";
+import Logo from "@/components/Logo.vue";
 
 export default {
   name: "Layout",
