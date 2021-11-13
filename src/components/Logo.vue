@@ -5,15 +5,20 @@
       overflow-hidden
       flex
       justify-center
-      align-items-center
+      items-center
       animate-reveal
-      text-lg text-green-500
+      text-3xl text-green-500
+      h-12
+      md:text-lg md:h-8
     "
   >
     <div :class="{ 'animate-reveal-first': animate }">Adopt&nbsp;</div>
     <div :class="{ 'animate-reveal-second': animate }">a&nbsp;</div>
     <div :class="{ 'animate-reveal-third': animate }">pet&nbsp;</div>
-    <img :src="icons.pet64" class="animate-pulse w-6 h-6 mt-0.5" />
+    <img
+      :src="icons.pet64"
+      class="animate-pulse w-9 h-9 md:w-5 md:h-5 mt-1 md:mt-0.5"
+    />
   </div>
 </template>
 

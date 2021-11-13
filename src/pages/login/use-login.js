@@ -1,9 +1,11 @@
-import { reactive } from "vue";
+import { reactive, inject } from "vue";
 
 import { useRouter } from "vue-router";
 
 export const useLogin = () => {
   const router = useRouter();
+
+  const loginSuccessfulCallback = inject("loginSuccessfulCallback");
 
   const state = reactive({
     username: "",
@@ -28,6 +30,7 @@ export const useLogin = () => {
     });
 
     if (isInputValid) {
+      loginSuccessfulCallback();
       localStorage.setItem("is-authenticated", "true");
       router.replace({ name: "Home" });
     }

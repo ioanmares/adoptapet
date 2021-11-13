@@ -34,6 +34,8 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.path !== "/login" && !isAuthenticated) {
     next({ name: "Login" });
+  } else if (to.path === "/login" && isAuthenticated) {
+    next({ name: "Home" });
   } else {
     next();
   }
