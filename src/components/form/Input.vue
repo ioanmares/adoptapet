@@ -75,6 +75,8 @@ export default {
       const errorMessage = "Please fill out the required field";
 
       error.value = !inputValue.value && props.required ? errorMessage : "";
+
+      return error.value ? false : true;
     };
 
     return {

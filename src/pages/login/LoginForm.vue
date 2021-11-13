@@ -55,32 +55,17 @@
 </template>
 
 <script>
-import { reactive } from "vue";
+import Input from "@/components/form/Input.vue";
 
-import Input from "./form/Input.vue";
+import { useLogin } from "./use-login";
 
 export default {
   name: "LoginForm",
   components: {
     Input,
   },
-  setup: () => {
-    const state = reactive({
-      username: "",
-      password: "",
-      refs: [],
-    });
-
-    const setItemRef = (el) => {
-      if (el) {
-        state.refs.push(el);
-      }
-    };
-
-    const handleSignIn = (e) => {
-      e.preventDefault();
-      state.refs.forEach((itemRef) => itemRef.validate());
-    };
+  setup() {
+    const { state, setItemRef, handleSignIn } = useLogin();
 
     return {
       state,

@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  setup() {},
+  name: "Layout",
 };
 </script>

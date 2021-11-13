@@ -3,9 +3,9 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        "reveal-first": "reveal-first 0.5s ease-out 1",
-        "reveal-second": "reveal-second 1s ease-in 1",
-        "reveal-third": "reveal-third 2s ease-out 1",
+        "reveal-first": "reveal-first 1s ease-out 1",
+        "reveal-second": "reveal-second 2s ease-in 1",
+        "reveal-third": "reveal-third 3s ease-out 1",
       },
       keyframes: {
         "reveal-first": {

@@ -7,7 +7,7 @@
       justify-center
       align-items-center
       animate-reveal
-      text-lg
+      text-lg text-green-500
     "
   >
     <div :class="{ 'animate-reveal-first': animate }">Adopt&nbsp;</div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { icons } from "../assets/icons";
+import { icons } from "@/assets/icons";
 
 export default {
   name: "Logo",
