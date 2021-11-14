@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mb-4">
+  <div class="flex">
     <label
       v-if="label"
       class="
@@ -78,6 +78,7 @@ export default {
       set: (value) => {
         error.value = "";
         context.emit("update:modelValue", value);
+        context.emit("change", value);
       },
     });
 

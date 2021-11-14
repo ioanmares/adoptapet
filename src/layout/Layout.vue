@@ -5,7 +5,7 @@
         <div class="w-full bg-yellow-200">
           <logo />
         </div>
-        <div class="relative flex flex-auto">
+        <div class="relative flex flex-auto flex-col items-center">
           <slot />
         </div>
       </div>

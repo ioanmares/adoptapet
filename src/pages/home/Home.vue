@@ -1,18 +1,24 @@
 <template>
+  <div class="w-4/6 my-2 z-1 bg-white">
+    <Input
+      name="search"
+      placeholder="Search for a pet.."
+      @change="debouncedSearch"
+    />
+  </div>
   <div
     class="
       absolute
-      top-0
+      top-14
       bottom-0
       overflow-auto
       w-full
       flex flex-col
       items-center
-      mt-2
     "
   >
     <Card
-      v-for="pet in state.pets"
+      v-for="pet in state.filteredPets"
       :key="pet.id"
       v-bind="pet"
       @adopt-pet="handleAdoptPet"
@@ -30,13 +36,16 @@ import { onMounted, reactive } from "vue";
 import PetService from "@/services/PetService";
 
 import Card from "@/components/Card";
-
+import Input from "@/components/form/Input";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
+
+import debounce from "lodash/debounce";
 
 export default {
   name: "Home",
   components: {
     Card,
+    Input,
     ConfirmationDialog,
   },
   setup() {
@@ -49,10 +58,11 @@ export default {
           "One of our team members will contact you soon for further details.",
         titleTemplate: "You're going to adopt {name}!",
       },
+      filteredPets: [],
     });
 
     onMounted(async () => {
-      state.pets = await PetService.getList();
+      state.pets = state.filteredPets = await PetService.getList();
     });
 
     const handleAdoptPet = async ({ id, name }) => {
@@ -63,9 +73,18 @@ export default {
       state.dialog.open = true;
     };
 
+    const debouncedSearch = debounce((searchValue) => {
+      state.filteredPets = state.pets.filter((p) =>
+        Object.keys(p)
+          .filter((k) => typeof p[k] === "string")
+          .some((k) => p[k].toLowerCase().includes(searchValue.toLowerCase()))
+      );
+    }, 300);
+
     return {
       state,
       handleAdoptPet,
+      debouncedSearch,
     };
   },
 };

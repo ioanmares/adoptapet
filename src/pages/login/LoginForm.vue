@@ -17,6 +17,7 @@
           label="Username"
           required
           v-model="state.username"
+          class="mb-4"
         />
         <Input
           :ref="setItemRef"
@@ -26,6 +27,7 @@
           label="Password"
           required
           v-model="state.password"
+          class="mb-4"
         />
       </div>
       <div class="flex items-center justify-between">
