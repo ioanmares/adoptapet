@@ -1,10 +1,14 @@
 <template>
   <base-layout>
     <template #default>
-      <div class="w-full bg-yellow-200">
-        <logo />
+      <div class="flex flex-col h-full">
+        <div class="w-full bg-yellow-200">
+          <logo />
+        </div>
+        <div class="relative flex flex-auto">
+          <slot />
+        </div>
       </div>
-      <slot />
     </template>
   </base-layout>
 </template>
