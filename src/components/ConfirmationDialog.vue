@@ -16,7 +16,9 @@
     <div class="bg-white rounded-lg w-1/2">
       <div class="flex flex-col items-start p-4">
         <div class="flex items-center w-full">
-          <div class="text-gray-900 font-medium text-lg">{{ title }}</div>
+          <div class="text-gray-900 font-medium text-sm md:text-md">
+            {{ title }}
+          </div>
           <svg
             @click="$emit('close')"
             class="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer"
@@ -29,11 +31,11 @@
           </svg>
         </div>
         <hr />
-        <div class="pt-4">
+        <div class="pt-4 text-xs md:text-md">
           {{ message }}
         </div>
         <hr />
-        <div class="ml-auto">
+        <div class="w-full flex justify-center md:justify-end pt-2 md:pt-0">
           <button
             @click="$emit('close')"
             class="
