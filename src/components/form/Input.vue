@@ -2,15 +2,24 @@
   <div class="flex mb-4">
     <label
       v-if="label"
-      class="block text-gray-700 text-sm font-bold mr-3 mt-2.5"
+      class="
+        block
+        flex-none
+        w-16
+        text-left text-gray-700 text-sm
+        font-bold
+        mr-3
+        mt-2.5
+      "
       :for="name"
     >
       {{ label }}
     </label>
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap h-12">
       <input
         :class="`w-full
               shadow
+              h-10
               appearance-none
               border
               rounded
@@ -25,7 +34,7 @@
         :placeholder="placeholder"
         v-model="inputValue"
       />
-      <p v-if="error" class="text-red-500 text-xs italic mt-3">
+      <p v-if="error" class="text-red-500 text-xs italic">
         {{ error }}
       </p>
     </div>
@@ -62,14 +71,15 @@ export default {
     },
   },
   setup(props, context) {
+    const error = ref("");
+
     const inputValue = computed({
       get: () => props.modelValue,
       set: (value) => {
+        error.value = "";
         context.emit("update:modelValue", value);
       },
     });
-
-    const error = ref("");
 
     const validate = () => {
       const errorMessage = "Please fill out the required field";
