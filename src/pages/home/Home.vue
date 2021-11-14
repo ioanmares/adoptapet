@@ -17,6 +17,9 @@
       items-center
     "
   >
+    <div v-if="!state.filteredPets.length">
+      <strong>No pets found.</strong>
+    </div>
     <Card
       v-for="pet in state.filteredPets"
       :key="pet.id"
@@ -74,11 +77,15 @@ export default {
     };
 
     const debouncedSearch = debounce((searchValue) => {
-      state.filteredPets = state.pets.filter((p) =>
-        Object.keys(p)
-          .filter((k) => typeof p[k] === "string")
-          .some((k) => p[k].toLowerCase().includes(searchValue.toLowerCase()))
-      );
+      if (!searchValue) {
+        state.filteredPets = state.pets;
+      } else {
+        state.filteredPets = state.pets.filter((p) =>
+          Object.keys(p)
+            .filter((k) => typeof p[k] === "string")
+            .some((k) => p[k].toLowerCase().includes(searchValue.toLowerCase()))
+        );
+      }
     }, 300);
 
     return {
