@@ -49,7 +49,7 @@
               rounded
             "
           >
-            Great!
+            {{ btnLabel }}
           </button>
         </div>
       </div>
@@ -59,6 +59,7 @@
 
 <script>
 export default {
+  name: "ConfirmationDialog",
   props: {
     open: {
       type: Boolean,
@@ -69,6 +70,10 @@ export default {
     },
     message: {
       type: String,
+    },
+    btnLabel: {
+      type: String,
+      default: "Great!",
     },
   },
 };
