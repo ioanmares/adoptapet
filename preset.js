@@ -2,6 +2,9 @@
 module.exports = {
   theme: {
     extend: {
+      maxHeight: {
+        200: "200px",
+      },
       animation: {
         "reveal-first": "reveal-first 1s ease-out 1",
         "reveal-second": "reveal-second 2s ease-in 1",

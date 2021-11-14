@@ -4,8 +4,7 @@
   >
     <div class="header p-4 w-full">{{ name }}</div>
     <div class="content px-4 w-full">
-      <p>{{ description }}</p>
-      <div class="flex pt-2">
+      <div class="flex pb-2">
         <img
           v-for="photo in photos"
           :key="name + photos.indexOf(photo)"
@@ -13,6 +12,9 @@
           class="w-24 h-24 md:w-40 md:h-40 mr-2 cursor-pointer select-none"
           @click="handlePhotoClick(photo)"
         />
+      </div>
+      <div class="break-words overflow-auto max-h-200 overscroll-none">
+        <p>{{ description }}</p>
       </div>
     </div>
     <div class="footer p-4 w-full">{{ contactNumber }}</div>
