@@ -12,6 +12,7 @@ const PetService = {
             description:
               "Max is a 2 years old bulldog. He is very playful and knows a trick or two when it comes to eating your pizza.",
             photos: MaxPhotos,
+            userId: "9ecd874c-d410-4917-ad68-1acd1f0bbe90",
           },
           {
             id: "2",
@@ -28,6 +29,7 @@ const PetService = {
             description:
               "Max is a 2 years old bulldog. He is very playful and knows a trick or two when it comes to eating your pizza.",
             photos: MaxPhotos,
+            userId: "9ecd874c-d410-4917-ad68-1acd1f0bbe90",
           },
           {
             id: "4",
@@ -36,6 +38,7 @@ const PetService = {
             description:
               "Max is a 2 years old bulldog. He is very playful and knows a trick or two when it comes to eating your pizza.",
             photos: MaxPhotos,
+            userId: "9ecd874c-d410-4917-ad68-1acd1f0bbe90",
           },
           {
             id: "5",
@@ -44,6 +47,7 @@ const PetService = {
             description:
               "Max is a 2 years old bulldog. He is very playful and knows a trick or two when it comes to eating your pizza.",
             photos: MaxPhotos,
+            userId: "9ecd874c-d410-4917-ad68-1acd1f0bbe90",
           },
           {
             id: "6",
@@ -52,6 +56,7 @@ const PetService = {
             description:
               "Max is a 2 years old bulldog. He is very playful and knows a trick or two when it comes to eating your pizza.",
             photos: MaxPhotos,
+            userId: "9ecd874c-d410-4917-ad68-1acd1f0bbe90",
           },
         ];
 

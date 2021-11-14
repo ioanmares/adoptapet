@@ -27,8 +27,9 @@
               px-3
               text-gray-700
               leading-tight
-              focus:outline-none focus:shadow-outline
-              ${error ? 'border-red-500' : ''}`"
+              focus:outline-none focus:shadow-outline 
+              ${error ? 'border-red-500' : ''} 
+              ${className}`"
         :id="name"
         :type="type"
         :placeholder="placeholder"
@@ -68,6 +69,10 @@ export default {
     },
     modelValue: {
       type: [Number, String],
+    },
+    className: {
+      type: String,
+      default: "",
     },
   },
   setup(props, context) {

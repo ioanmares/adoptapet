@@ -1,12 +1,28 @@
 <template>
   <div
-    class="flex flex-wrap text-left w-4/6 shadow rounded border-gray-500 my-4"
+    class="
+      flex flex-wrap
+      text-left
+      w-4/6
+      shadow
+      rounded
+      border-gray-500
+      my-4
+      bg-white
+    "
   >
     <div class="header p-4 w-full flex justify-between">
       <p>
         <b>{{ name }}</b>
       </p>
       <div
+        v-if="addedByCurrentUser"
+        class="text-blue-300 cursor-pointer hover:text-yellow-300"
+      >
+        <p>Added by me</p>
+      </div>
+      <div
+        v-else
         class="text-blue-300 cursor-pointer hover:text-yellow-300"
         @click="$emit('adopt-pet', { id, name })"
       >
@@ -32,6 +48,8 @@
 </template>
 
 <script>
+import { inject } from "vue";
+
 export default {
   props: {
     id: String,
@@ -39,8 +57,11 @@ export default {
     description: String,
     photos: Array, // contains b64 images
     contactNumber: String,
+    userId: String,
   },
   setup(props) {
+    const currentUser = inject("user");
+
     const handlePhotoClick = (photo) => {
       fetch(photo)
         .then((response) => response.blob())
@@ -51,9 +72,12 @@ export default {
       alert("You are going to adopt " + props.name);
     };
 
+    const addedByCurrentUser = props.userId === currentUser.id;
+
     return {
       handlePhotoClick,
       handleAdoptPet,
+      addedByCurrentUser,
     };
   },
 };

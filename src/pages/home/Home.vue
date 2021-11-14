@@ -1,6 +1,7 @@
 <template>
-  <div class="w-4/6 my-2 z-1 bg-white">
+  <div class="w-4/6 my-2">
     <Input
+      className="border border-green-300 hover:border-blue-300"
       name="search"
       placeholder="Search for a pet.."
       @change="debouncedSearch"
