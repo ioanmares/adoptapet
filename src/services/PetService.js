@@ -76,6 +76,7 @@ const PetService = {
       }, 50);
     });
   },
+  requestAdoption: () => Promise.resolve(),
 };
 
 export default PetService;

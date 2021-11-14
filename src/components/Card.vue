@@ -2,7 +2,17 @@
   <div
     class="flex flex-wrap text-left w-4/6 shadow rounded border-gray-500 my-4"
   >
-    <div class="header p-4 w-full">{{ name }}</div>
+    <div class="header p-4 w-full flex justify-between">
+      <p>
+        <b>{{ name }}</b>
+      </p>
+      <div
+        class="text-blue-300 cursor-pointer hover:text-yellow-300"
+        @click="$emit('adopt-pet', { id, name })"
+      >
+        <p>I want to adopt this pet</p>
+      </div>
+    </div>
     <div class="content px-4 w-full">
       <div class="flex pb-2">
         <img
@@ -24,20 +34,26 @@
 <script>
 export default {
   props: {
+    id: String,
     name: String,
     description: String,
     photos: Array, // contains b64 images
     contactNumber: String,
   },
-  setup() {
+  setup(props) {
     const handlePhotoClick = (photo) => {
       fetch(photo)
         .then((response) => response.blob())
         .then((r) => window.open(URL.createObjectURL(r), "_blank"));
     };
 
+    const handleAdoptPet = () => {
+      alert("You are going to adopt " + props.name);
+    };
+
     return {
       handlePhotoClick,
+      handleAdoptPet,
     };
   },
 };
