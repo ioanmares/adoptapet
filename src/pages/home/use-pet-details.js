@@ -67,6 +67,7 @@ export const usePetDetails = () => {
     state.editDialog.pet = JSON.parse(
       JSON.stringify(state.pets.find((p) => p.id === id))
     );
+
     state.editDialog.open = true;
     state.editDialog.btnLabel = "Confirm";
     state.dialogType = "editDialog";

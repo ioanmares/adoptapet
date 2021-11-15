@@ -32,7 +32,7 @@ const PetService = {
     Promise.resolve({
       ...pet,
       id: `${pets.reduce((counter, currentPet) => {
-        if (parseInt(currentPet.id) > counter) {
+        if (parseInt(currentPet.id) === counter) {
           counter = parseInt(currentPet.id) + 1;
         }
 
