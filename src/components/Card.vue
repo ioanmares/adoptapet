@@ -12,14 +12,11 @@
       bg-white
     "
   >
-    <div class="header p-4 w-full flex justify-between items-center">
-      <p>
-        <b>{{ name }}</b>
-      </p>
-      <div
-        v-if="addedByCurrentUser"
-        class="w-full flex justify-between items-center"
-      >
+    <div class="header p-4 w-full flex">
+      <div class="w-full flex items-center">
+        <p>
+          <b>{{ name }}</b>
+        </p>
         <div
           class="
             flex
@@ -36,21 +33,24 @@
           <Icon>pencil</Icon>
           Edit
         </div>
-        <p class="text-blue-300 cursor-pointer hover:text-yellow-300">
-          Added by me
-        </p>
       </div>
       <div
-        v-else
         class="
-          text-blue-300
+          flex
+          items-center
+          justify-end
+          w-full
+          text-right text-blue-300
           cursor-pointer
           hover:text-yellow-300
-          cursor-pointer
+          text-xs
+          md:text-lg
         "
-        @click="$emit('adopt-pet', { id, name })"
       >
-        <p>I want to adopt this pet</p>
+        <p v-if="addedByCurrentUser">Added by me</p>
+        <p v-else @click="$emit('adopt-pet', { id, name })">
+          I want to adopt this pet
+        </p>
       </div>
     </div>
     <div class="content px-4 w-full">
