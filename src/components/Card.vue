@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="content px-4 w-full">
-      <div class="flex pb-2">
+      <div class="flex pb-2 overflow-auto">
         <img
           v-for="photo in photos"
           :key="name + photos.indexOf(photo)"
