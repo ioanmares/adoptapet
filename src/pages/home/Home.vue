@@ -94,7 +94,6 @@
             "
             :src="photo"
             class="w-16 h-16 md:w-32 md:h-32 mr-2 cursor-pointer select-none"
-            @click="handlePhotoClick(photo)"
           />
           <div
             class="
@@ -152,29 +151,10 @@ export default {
       handleAdoptPet,
       handleAddPet,
       handleEditDetails,
+      handleAddPhoto,
       handleConfirm,
       handleClose,
     } = usePetDetails();
-
-    const handlePhotoClick = (photo) => {
-      fetch(photo)
-        .then((response) => response.blob())
-        .then((r) => window.open(URL.createObjectURL(r), "_blank"));
-    };
-
-    const handleAddPhoto = (e) => {
-      const files = e.target.files;
-
-      if (files.length) {
-        const fileReader = new FileReader();
-
-        fileReader.onload = () => {
-          state[state.dialogType].pet.photos.push(fileReader.result);
-        };
-
-        fileReader.readAsDataURL(files[0]);
-      }
-    };
 
     return {
       state,
@@ -184,7 +164,6 @@ export default {
       handleConfirm,
       handleClose,
       debouncedSearch,
-      handlePhotoClick,
       handleAddPhoto,
     };
   },

@@ -100,6 +100,20 @@ export const usePetDetails = () => {
     }
   };
 
+  const handleAddPhoto = (e) => {
+    const files = e.target.files;
+
+    if (files.length) {
+      const fileReader = new FileReader();
+
+      fileReader.onload = () => {
+        state[state.dialogType].pet.photos.push(fileReader.result);
+      };
+
+      fileReader.readAsDataURL(files[0]);
+    }
+  };
+
   const handleClose = () => {
     state[state.dialogType].open = false;
   };
@@ -110,6 +124,7 @@ export const usePetDetails = () => {
     handleAddPet,
     handleEditDetails,
     handleAdoptPet,
+    handleAddPhoto,
     handleConfirm,
     handleClose,
   };
