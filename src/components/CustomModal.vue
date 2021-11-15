@@ -16,7 +16,7 @@
     <div class="bg-white rounded-lg w-1/2">
       <div class="flex flex-col items-start p-4">
         <div class="flex items-center w-full">
-          <div class="text-gray-900 font-medium text-sm md:text-md">
+          <div class="text-gray-900 font-medium text-sm md:text-lg">
             {{ title }}
           </div>
           <svg
@@ -31,8 +31,9 @@
           </svg>
         </div>
         <hr />
-        <div class="pt-4 text-xs md:text-md">
+        <div class="pt-4 text-xs md:text-lg">
           {{ message }}
+          <slot />
         </div>
         <hr />
         <div class="w-full flex justify-center md:justify-end pt-2 md:pt-0">
@@ -61,7 +62,7 @@
 
 <script>
 export default {
-  name: "ConfirmationDialog",
+  name: "CustomModal",
   props: {
     open: {
       type: Boolean,

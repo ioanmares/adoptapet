@@ -1,6 +1,7 @@
 <template>
   <div
     class="
+      relative
       flex flex-wrap
       text-left
       w-4/6
@@ -11,19 +12,38 @@
       bg-white
     "
   >
-    <div class="header p-4 w-full flex justify-between">
+    <div class="header p-4 w-full flex justify-between items-center">
       <p>
         <b>{{ name }}</b>
       </p>
-      <div
-        v-if="addedByCurrentUser"
-        class="text-blue-300 cursor-pointer hover:text-yellow-300"
-      >
-        <p>Added by me</p>
+      <div v-if="addedByCurrentUser" class="w-full flex justify-between">
+        <div
+          class="
+            flex
+            ml-2
+            p-1
+            text-blue-400
+            cursor-pointer
+            hover:bg-gray-200
+            select-none
+            rounded
+          "
+        >
+          <div v-html="icons.pencil" />
+          Edit
+        </div>
+        <p class="text-blue-300 cursor-pointer hover:text-yellow-300">
+          Added by me
+        </p>
       </div>
       <div
         v-else
-        class="text-blue-300 cursor-pointer hover:text-yellow-300"
+        class="
+          text-blue-300
+          cursor-pointer
+          hover:text-yellow-300
+          cursor-pointer
+        "
         @click="$emit('adopt-pet', { id, name })"
       >
         <p>I want to adopt this pet</p>
@@ -49,6 +69,8 @@
 
 <script>
 import { inject } from "vue";
+
+import { icons } from "@/assets/icons";
 
 export default {
   props: {
@@ -78,6 +100,7 @@ export default {
       handlePhotoClick,
       handleAdoptPet,
       addedByCurrentUser,
+      icons,
     };
   },
 };

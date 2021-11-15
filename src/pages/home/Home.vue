@@ -28,10 +28,13 @@
       @adopt-pet="handleAdoptPet"
     />
   </div>
-  <ConfirmationDialog
-    v-bind="state.dialog"
-    @close="state.dialog.open = false"
-  />
+  <CustomModal
+    v-if="state.dialogType"
+    v-bind="state[state.dialogType]"
+    @close="state[state.dialogType].open = false"
+  >
+    <div v-if="['addDialog', 'editDialog'].includes(state.dialogType)"></div>
+  </CustomModal>
 </template>
 
 <script>
@@ -41,7 +44,7 @@ import PetService from "@/services/PetService";
 
 import Card from "@/components/Card";
 import Input from "@/components/form/Input";
-import ConfirmationDialog from "@/components/ConfirmationDialog";
+import CustomModal from "@/components/CustomModal";
 
 import debounce from "lodash/debounce";
 
@@ -50,19 +53,28 @@ export default {
   components: {
     Card,
     Input,
-    ConfirmationDialog,
+    CustomModal,
   },
   setup() {
     const state = reactive({
       pets: [],
-      dialog: {
+      confirmationDialog: {
         open: false,
         title: "",
         message:
           "One of our team members will contact you soon for further details.",
         titleTemplate: "You're going to adopt {name}!",
       },
+      addDialog: {
+        open: false,
+        title: "Add a new pet for adoption",
+      },
+      editDialog: {
+        open: false,
+        title: "Edit pet details",
+      },
       filteredPets: [],
+      dialogType: "",
     });
 
     onMounted(async () => {
@@ -73,8 +85,10 @@ export default {
       // send data to backend
       await PetService.requestAdoption(id);
 
-      state.dialog.title = state.dialog.titleTemplate.replace("{name}", name);
-      state.dialog.open = true;
+      state.confirmationDialog.title =
+        state.confirmationDialog.titleTemplate.replace("{name}", name);
+      state.confirmationDialog.open = true;
+      state.dialogType = "confirmationDialog";
     };
 
     const debouncedSearch = debounce((searchValue) => {
