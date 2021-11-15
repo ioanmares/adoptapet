@@ -10,6 +10,7 @@ export const usePetDetails = () => {
   const state = reactive({
     pets: [],
     categories: [],
+    inputRefs: [],
     confirmationDialog: {
       open: false,
       title: "",
@@ -83,8 +84,25 @@ export const usePetDetails = () => {
     }
   }, 300);
 
+  const isInputValid = () => {
+    let isInputValid = true;
+    state.inputRefs.forEach((itemRef) => {
+      const isValid = itemRef.validate();
+
+      if (isInputValid && !isValid) {
+        isInputValid = false;
+      }
+    });
+
+    return isInputValid;
+  };
+
   const handleConfirm = async () => {
     if (state.dialogType === "editDialog") {
+      if (!isInputValid()) {
+        return;
+      }
+
       const updatedPet = state[state.dialogType].pet;
       const pet = state.pets.find((p) => p.id === updatedPet.id);
       const oldPet = JSON.parse(JSON.stringify(pet));
@@ -95,9 +113,16 @@ export const usePetDetails = () => {
         Object.assign(pet, oldPet);
       });
     } else if (state.dialogType === "addDialog") {
-      const addedPet = await PetService.addPet(state.addDialog.pet);
-      state.pets.push(addedPet);
+      if (!isInputValid()) {
+        return;
+      }
+
+      PetService.addPet(state.addDialog.pet).then((addedPet) =>
+        state.pets.push(addedPet)
+      );
     }
+
+    handleClose();
   };
 
   const handleAddPhoto = (e) => {
@@ -116,6 +141,13 @@ export const usePetDetails = () => {
 
   const handleClose = () => {
     state[state.dialogType].open = false;
+    state.inputRefs = [];
+  };
+
+  const setInputRef = (el) => {
+    if (el) {
+      state.inputRefs.push(el);
+    }
   };
 
   return {
@@ -127,5 +159,6 @@ export const usePetDetails = () => {
     handleAddPhoto,
     handleConfirm,
     handleClose,
+    setInputRef,
   };
 };

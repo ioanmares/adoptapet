@@ -29,12 +29,7 @@
         <hr />
         <div class="w-full flex justify-center md:justify-end pt-2 md:pt-0">
           <button
-            @click="
-              () => {
-                $emit('close');
-                $emit('confirm');
-              }
-            "
+            @click="$emit('confirm')"
             class="
               bg-transparent
               hover:bg-yellow-300

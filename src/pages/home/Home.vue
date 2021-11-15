@@ -61,6 +61,7 @@
     >
       <form>
         <Input
+          :ref="setInputRef"
           name="name"
           label="Name"
           required
@@ -69,6 +70,7 @@
           labelPosition="top"
         />
         <Input
+          :ref="setInputRef"
           name="description"
           label="Description"
           required
@@ -77,6 +79,7 @@
           labelPosition="top"
         />
         <Select
+          :ref="setInputRef"
           name="category"
           label="Category"
           required
@@ -154,6 +157,7 @@ export default {
       handleAddPhoto,
       handleConfirm,
       handleClose,
+      setInputRef,
     } = usePetDetails();
 
     return {
@@ -165,6 +169,7 @@ export default {
       handleClose,
       debouncedSearch,
       handleAddPhoto,
+      setInputRef,
     };
   },
 };
