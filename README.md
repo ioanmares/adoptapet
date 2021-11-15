@@ -1,4 +1,10 @@
-# adoptapet
+# Adopt a pet
+
+### Built using vue 3 and tailwind css
+
+### Front-end version only
+
+### For logging in, use any credentials
 
 ## Project setup
 ```
