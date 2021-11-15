@@ -19,7 +19,7 @@ export const pets = [
     photos: [],
   },
   {
-    id: "2",
+    id: "3",
     name: "Fred",
     category: "dog",
     description:

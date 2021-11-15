@@ -67,6 +67,8 @@ export const usePetDetails = () => {
     state.editDialog.pet = JSON.parse(
       JSON.stringify(state.pets.find((p) => p.id === id))
     );
+    console.log(state.editDialog.pet);
+
     state.editDialog.open = true;
     state.editDialog.btnLabel = "Confirm";
     state.dialogType = "editDialog";
@@ -120,6 +122,8 @@ export const usePetDetails = () => {
       PetService.addPet(state.addDialog.pet).then((addedPet) =>
         state.pets.push(addedPet)
       );
+
+      console.log(state.pets);
     }
 
     handleClose();
