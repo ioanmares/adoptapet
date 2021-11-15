@@ -1,10 +1,12 @@
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, inject } from "vue";
 
 import PetService from "@/services/PetService";
 
 import debounce from "lodash/debounce";
 
 export const usePetDetails = () => {
+  const user = inject("user");
+
   const state = reactive({
     pets: [],
     confirmationDialog: {
@@ -40,6 +42,19 @@ export const usePetDetails = () => {
     state.dialogType = "confirmationDialog";
   };
 
+  const handleAddPet = () => {
+    state.addDialog.pet = {
+      name: "",
+      description: "",
+      photos: [],
+      category: "",
+      userId: user.id,
+    };
+    state.addDialog.open = true;
+    state.addDialog.btnLabel = "Confirm";
+    state.dialogType = "addDialog";
+  };
+
   const handleEditDetails = (id) => {
     state.editDialog.pet = JSON.parse(
       JSON.stringify(state.pets.find((p) => p.id === id))
@@ -61,18 +76,27 @@ export const usePetDetails = () => {
     }
   }, 300);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (state.dialogType === "editDialog") {
       const updatedPet = state[state.dialogType].pet;
-      // send updated data to backend
       const pet = state.pets.find((p) => p.id === updatedPet.id);
+      const oldPet = JSON.parse(JSON.stringify(pet));
       Object.assign(pet, updatedPet);
+
+      PetService.updatePet(updatedPet).catch(() => {
+        // revert changes if request failed
+        Object.assign(pet, oldPet);
+      });
+    } else if (state.dialogType === "addDialog") {
+      const addedPet = await PetService.addPet(state.addDialog.pet);
+      state.pets.push(addedPet);
     }
   };
 
   return {
     state,
     debouncedSearch,
+    handleAddPet,
     handleEditDetails,
     handleAdoptPet,
     handleConfirm,

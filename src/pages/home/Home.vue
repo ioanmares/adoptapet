@@ -1,7 +1,7 @@
 <template>
   <div class="w-4/6 my-2 flex justify-between items-center">
     <Input
-      className="border border-green-300 hover:border-blue-300"
+      className="border hover:border-blue-300"
       name="search"
       placeholder="Search for a pet.."
       @change="debouncedSearch"
@@ -17,10 +17,11 @@
         p-1
         md:p-2
         bg-white
-        text-gray-500
+        text-blue-300
         cursor-pointer
-        hover:bg-green-400
+        hover:bg-yellow-200
       "
+      @click="handleAddPet"
     >
       Add a new pet
     </div>
@@ -111,6 +112,7 @@ export default {
       state,
       debouncedSearch,
       handleAdoptPet,
+      handleAddPet,
       handleEditDetails,
       handleConfirm,
     } = usePetDetails();
@@ -118,6 +120,7 @@ export default {
     return {
       state,
       handleAdoptPet,
+      handleAddPet,
       handleEditDetails,
       handleConfirm,
       debouncedSearch,
