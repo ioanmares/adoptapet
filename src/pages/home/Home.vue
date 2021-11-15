@@ -140,7 +140,7 @@ export default {
       } else {
         state.filteredPets = state.pets.filter((p) =>
           Object.keys(p)
-            .filter((k) => typeof p[k] === "string")
+            .filter((k) => typeof p[k] === "string" && k !== "id")
             .some((k) => p[k].toLowerCase().includes(searchValue.toLowerCase()))
         );
       }
