@@ -16,7 +16,10 @@
       <p>
         <b>{{ name }}</b>
       </p>
-      <div v-if="addedByCurrentUser" class="w-full flex justify-between">
+      <div
+        v-if="addedByCurrentUser"
+        class="w-full flex justify-between items-center"
+      >
         <div
           class="
             flex
@@ -29,7 +32,7 @@
             rounded
           "
         >
-          <div v-html="icons.pencil" />
+          <Icon>pencil</Icon>
           Edit
         </div>
         <p class="text-blue-300 cursor-pointer hover:text-yellow-300">
@@ -70,9 +73,12 @@
 <script>
 import { inject } from "vue";
 
-import { icons } from "@/assets/icons";
+import Icon from "@/components/Icon";
 
 export default {
+  components: {
+    Icon,
+  },
   props: {
     id: String,
     name: String,
@@ -100,7 +106,6 @@ export default {
       handlePhotoClick,
       handleAdoptPet,
       addedByCurrentUser,
-      icons,
     };
   },
 };

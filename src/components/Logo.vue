@@ -16,14 +16,14 @@
     <div :class="{ 'animate-reveal-second': animate }">a&nbsp;</div>
     <div :class="{ 'animate-reveal-third': animate }">pet&nbsp;</div>
     <img
-      :src="icons.pet64"
+      :src="logoImg"
       class="animate-pulse w-9 h-9 md:w-5 md:h-5 mt-1 md:mt-0.5"
     />
   </div>
 </template>
 
 <script>
-import { icons } from "@/assets/icons";
+import { logoImg } from "@/assets/icons";
 
 export default {
   name: "Logo",
@@ -35,7 +35,7 @@ export default {
   },
   setup() {
     return {
-      icons,
+      logoImg,
     };
   },
 };
