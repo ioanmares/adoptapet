@@ -31,6 +31,7 @@
         :type="type"
         :placeholder="placeholder"
         v-model="inputValue"
+        @change="(e) => e.stopPropagation()"
       />
       <p v-if="error" class="text-red-500 text-xs italic text-left">
         {{ error }}
