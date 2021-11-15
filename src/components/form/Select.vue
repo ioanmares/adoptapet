@@ -109,7 +109,6 @@ export default {
     },
   },
   setup(props, context) {
-    console.log(props.items);
     const error = ref("");
 
     const inputValue = computed({

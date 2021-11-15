@@ -11,6 +11,8 @@ module.exports = {
       },
       maxWidth: {
         "3/4": "75%",
+        250: "250px",
+        400: "400px",
       },
       animation: {
         "reveal-first": "reveal-first 1s ease-out 1",

@@ -31,13 +31,13 @@ const PetService = {
   addPet: (pet) =>
     Promise.resolve({
       ...pet,
-      id: pets.reduce((counter, currentPet) => {
+      id: `${pets.reduce((counter, currentPet) => {
         if (parseInt(currentPet.id) > counter) {
           counter = parseInt(currentPet.id) + 1;
         }
 
         return counter;
-      }, 0),
+      }, 0)}`,
     }),
   updatePet: (pet) => Promise.resolve(pet),
   getCategories: () =>

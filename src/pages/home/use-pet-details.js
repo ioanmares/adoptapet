@@ -100,6 +100,10 @@ export const usePetDetails = () => {
     }
   };
 
+  const handleClose = () => {
+    state[state.dialogType].open = false;
+  };
+
   return {
     state,
     debouncedSearch,
@@ -107,5 +111,6 @@ export const usePetDetails = () => {
     handleEditDetails,
     handleAdoptPet,
     handleConfirm,
+    handleClose,
   };
 };

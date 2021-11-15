@@ -67,7 +67,7 @@
         <p>{{ description }}</p>
       </div>
     </div>
-    <div class="footer p-4 w-full">{{ contactNumber }}</div>
+    <div class="footer p-4 w-full"></div>
   </div>
 </template>
 

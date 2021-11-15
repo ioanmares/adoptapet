@@ -52,7 +52,7 @@
   <CustomModal
     v-if="state.dialogType"
     v-bind="state[state.dialogType]"
-    @close="state[state.dialogType].open = false"
+    @close="handleClose"
     @confirm="handleConfirm"
   >
     <div
@@ -82,8 +82,45 @@
           required
           v-model="state[state.dialogType].pet.category"
           labelPosition="top"
+          class="mb-4"
           :items="state.categories"
         />
+        <div class="flex pb-2 overflow-auto max-w-250 md:max-w-400">
+          <img
+            v-for="photo in state[state.dialogType].pet.photos"
+            :key="
+              state[state.dialogType].pet.name +
+              state[state.dialogType].pet.photos.indexOf(photo)
+            "
+            :src="photo"
+            class="w-16 h-16 md:w-32 md:h-32 mr-2 cursor-pointer select-none"
+            @click="handlePhotoClick(photo)"
+          />
+          <div
+            class="
+              relative
+              flex flex-shrink-0
+              w-16
+              h-16
+              md:w-32 md:h-32
+              border
+              rounded-lg
+              justify-center
+              items-center
+              text-gray-300
+              hover:border-blue-300 hover:text-blue-300
+              select-none
+            "
+          >
+            <input
+              title=""
+              type="file"
+              class="absolute opacity-0 w-full h-full cursor-pointer"
+              @change="handleAddPhoto"
+            />
+            <Icon size="medium">add</Icon>
+          </div>
+        </div>
       </form>
     </div>
   </CustomModal>
@@ -95,6 +132,8 @@ import Input from "@/components/form/Input";
 import Select from "@/components/form/Select";
 import CustomModal from "@/components/CustomModal";
 
+import Icon from "@/components/Icon";
+
 import { usePetDetails } from "@/pages/home/use-pet-details";
 
 export default {
@@ -104,6 +143,7 @@ export default {
     Input,
     Select,
     CustomModal,
+    Icon,
   },
   setup() {
     const {
@@ -113,7 +153,28 @@ export default {
       handleAddPet,
       handleEditDetails,
       handleConfirm,
+      handleClose,
     } = usePetDetails();
+
+    const handlePhotoClick = (photo) => {
+      fetch(photo)
+        .then((response) => response.blob())
+        .then((r) => window.open(URL.createObjectURL(r), "_blank"));
+    };
+
+    const handleAddPhoto = (e) => {
+      const files = e.target.files;
+
+      if (files.length) {
+        const fileReader = new FileReader();
+
+        fileReader.onload = () => {
+          state[state.dialogType].pet.photos.push(fileReader.result);
+        };
+
+        fileReader.readAsDataURL(files[0]);
+      }
+    };
 
     return {
       state,
@@ -121,7 +182,10 @@ export default {
       handleAddPet,
       handleEditDetails,
       handleConfirm,
+      handleClose,
       debouncedSearch,
+      handlePhotoClick,
+      handleAddPhoto,
     };
   },
 };
