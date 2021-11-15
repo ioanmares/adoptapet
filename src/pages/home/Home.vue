@@ -26,6 +26,7 @@
       :key="pet.id"
       v-bind="pet"
       @adopt-pet="handleAdoptPet"
+      @edit="handleEditDetails"
     />
   </div>
   <CustomModal
@@ -33,7 +34,40 @@
     v-bind="state[state.dialogType]"
     @close="state[state.dialogType].open = false"
   >
-    <div v-if="['addDialog', 'editDialog'].includes(state.dialogType)"></div>
+    <form class="">
+      <div
+        v-if="['addDialog', 'editDialog'].includes(state.dialogType)"
+        class="flex flex-col px-2 mb-8 min-w-250 md:min-w-400"
+      >
+        <Input
+          name="name"
+          label="Name"
+          required
+          v-model="state[state.dialogType].pet.name"
+          class="mb-4"
+          labelPosition="top"
+        />
+        <Input
+          name="description"
+          label="Description"
+          required
+          v-model="state[state.dialogType].pet.description"
+          class="mb-4"
+          labelPosition="top"
+        />
+        <Select
+          name="category"
+          label="Category"
+          required
+          v-model="state[state.dialogType].pet.category"
+          labelPosition="top"
+          :items="[
+            { text: 'Dog', value: 'dog' },
+            { text: 'Cat', value: 'cat' },
+          ]"
+        />
+      </div>
+    </form>
   </CustomModal>
 </template>
 
@@ -44,6 +78,7 @@ import PetService from "@/services/PetService";
 
 import Card from "@/components/Card";
 import Input from "@/components/form/Input";
+import Select from "@/components/form/Select";
 import CustomModal from "@/components/CustomModal";
 
 import debounce from "lodash/debounce";
@@ -53,6 +88,7 @@ export default {
   components: {
     Card,
     Input,
+    Select,
     CustomModal,
   },
   setup() {
@@ -91,6 +127,13 @@ export default {
       state.dialogType = "confirmationDialog";
     };
 
+    const handleEditDetails = (id) => {
+      state.editDialog.pet = state.pets.find((p) => p.id === id);
+      state.editDialog.open = true;
+      state.editDialog.btnLabel = "Confirm";
+      state.dialogType = "editDialog";
+    };
+
     const debouncedSearch = debounce((searchValue) => {
       if (!searchValue) {
         state.filteredPets = state.pets;
@@ -106,6 +149,7 @@ export default {
     return {
       state,
       handleAdoptPet,
+      handleEditDetails,
       debouncedSearch,
     };
   },

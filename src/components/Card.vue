@@ -31,6 +31,7 @@
             select-none
             rounded
           "
+          @click="$emit('edit', id)"
         >
           <Icon>pencil</Icon>
           Edit
@@ -84,7 +85,6 @@ export default {
     name: String,
     description: String,
     photos: Array, // contains b64 images
-    contactNumber: String,
     userId: String,
   },
   setup(props) {

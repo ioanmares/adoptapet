@@ -1,32 +1,30 @@
 <template>
-  <div class="flex mb-4">
+  <div :class="{ flex: true, 'flex-col': labelPosition === 'top' }">
     <label
       v-if="label"
-      class="
+      :class="`
         flex-none
         block
         w-16
         text-gray-700 text-sm
-        font-bold
-        mr-3
-        mt-2.5
         text-left
-      "
+        ${labelPosition === 'top' ? 'mb-2' : 'mr-3 mt-2.5'}`"
       :for="name"
     >
       {{ label }}
     </label>
     <div class="flex flex-wrap w-full h-12">
-      <div class="relative w-full">
+      <div class="relative w-full h-10">
         <select
           :class="`
           block
+          text-sm
           appearance-none
           w-full
-          h-10
+          h-full
           bg-white
           border
-          hover:border-gray-500
+          hover:border-blue-300
           px-4
           py-2
           pr-8
@@ -104,8 +102,13 @@ export default {
     modelValue: {
       type: [Number, String],
     },
+    labelPosition: {
+      type: String,
+      default: "left",
+    },
   },
   setup(props, context) {
+    console.log(props.items);
     const error = ref("");
 
     const inputValue = computed({

@@ -13,13 +13,13 @@
       bg-gray-800 bg-opacity-40
     "
   >
-    <div class="bg-white rounded-lg w-1/2">
+    <div class="bg-white rounded-lg min-w-250 max-w-4/6">
       <div class="flex flex-col items-start p-4">
         <div class="flex items-center justify-between w-full">
           <div class="text-gray-900 font-medium text-sm md:text-lg">
             {{ title }}
           </div>
-          <Icon @click="$emit('close')">close</Icon>
+          <Icon class="cursor-pointer" @click="$emit('close')">close</Icon>
         </div>
         <hr />
         <div class="pt-4 text-xs md:text-lg">

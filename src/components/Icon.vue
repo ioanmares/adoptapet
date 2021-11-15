@@ -1,15 +1,17 @@
 <template>
-  <div ref="slotRef" class="hidden">
-    <slot />
+  <div>
+    <div ref="slotRef" class="hidden">
+      <slot />
+    </div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path :d="svgPath" />
+    </svg>
   </div>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-5 w-5"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path :d="svgPath" />
-  </svg>
 </template>
 
 <script>

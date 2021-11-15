@@ -1,21 +1,15 @@
 <template>
-  <div class="flex">
+  <div :class="{ flex: true, 'flex-col': labelPosition === 'top' }">
     <label
       v-if="label"
-      class="
-        block
-        flex-none
-        w-16
-        text-left text-gray-700 text-sm
-        font-bold
-        mr-3
-        mt-2.5
-      "
+      :class="`block flex-none w-20 text-left text-gray-700 text-sm ${
+        labelPosition === 'top' ? 'mb-2' : 'mr-3 mt-2.5'
+      }`"
       :for="name"
     >
       {{ label }}
     </label>
-    <div class="flex flex-wrap h-12">
+    <div class="flex flex-col h-12">
       <input
         :class="`w-full
               shadow
@@ -25,9 +19,12 @@
               rounded
               py-2
               px-3
+              text-sm
               text-gray-700
               leading-tight
-              focus:outline-none focus:shadow-outline 
+              hover:border-blue-300
+              focus:outline-none focus:shadow-outline
+              focus:border-blue-300
               ${error ? 'border-red-500' : ''} 
               ${className}`"
         :id="name"
@@ -35,7 +32,7 @@
         :placeholder="placeholder"
         v-model="inputValue"
       />
-      <p v-if="error" class="text-red-500 text-xs italic">
+      <p v-if="error" class="text-red-500 text-xs italic text-left">
         {{ error }}
       </p>
     </div>
@@ -74,22 +71,26 @@ export default {
       type: String,
       default: "",
     },
+    labelPosition: {
+      type: String,
+      default: "left",
+    },
   },
   setup(props, context) {
+    const errorMessage = "Please fill out the required field";
+
     const error = ref("");
 
     const inputValue = computed({
       get: () => props.modelValue,
       set: (value) => {
-        error.value = "";
+        error.value = value.length === 0 && props.required ? errorMessage : "";
         context.emit("update:modelValue", value);
         context.emit("change", value);
       },
     });
 
     const validate = () => {
-      const errorMessage = "Please fill out the required field";
-
       error.value = !inputValue.value && props.required ? errorMessage : "";
 
       return error.value ? false : true;

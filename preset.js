@@ -5,6 +5,13 @@ module.exports = {
       maxHeight: {
         200: "200px",
       },
+      minWidth: {
+        250: "250px",
+        400: "400px",
+      },
+      maxWidth: {
+        "3/4": "75%",
+      },
       animation: {
         "reveal-first": "reveal-first 1s ease-out 1",
         "reveal-second": "reveal-second 2s ease-in 1",
