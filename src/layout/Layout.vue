@@ -2,7 +2,7 @@
   <base-layout>
     <template #default>
       <div class="flex flex-col h-full">
-        <div class="w-full bg-yellow-200">
+        <div class="w-full bg-yellow-200 shadow">
           <logo />
         </div>
         <div class="relative flex flex-auto flex-col items-center">
