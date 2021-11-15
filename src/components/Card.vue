@@ -18,6 +18,7 @@
           <b>{{ name }}</b>
         </p>
         <div
+          v-if="addedByCurrentUser"
           class="
             flex
             ml-2
