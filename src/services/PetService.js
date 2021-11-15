@@ -40,6 +40,11 @@ const PetService = {
       }, 0),
     }),
   updatePet: (pet) => Promise.resolve(pet),
+  getCategories: () =>
+    Promise.resolve([
+      { text: "Dog", value: "dog" },
+      { text: "Cat", value: "cat" },
+    ]),
 };
 
 export default PetService;

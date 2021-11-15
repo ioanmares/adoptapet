@@ -9,6 +9,7 @@ export const usePetDetails = () => {
 
   const state = reactive({
     pets: [],
+    categories: [],
     confirmationDialog: {
       open: false,
       title: "",
@@ -28,8 +29,14 @@ export const usePetDetails = () => {
     dialogType: "",
   });
 
-  onMounted(async () => {
-    state.pets = state.filteredPets = await PetService.getList();
+  onMounted(() => {
+    PetService.getList().then((pets) => {
+      state.pets = state.filteredPets = pets;
+    });
+
+    PetService.getCategories().then(
+      (categories) => (state.categories = categories)
+    );
   });
 
   const handleAdoptPet = async ({ id, name }) => {

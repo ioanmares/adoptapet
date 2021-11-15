@@ -14,6 +14,7 @@
         text-xs
         md:text-sm
         rounded
+        shadow
         p-1
         md:p-2
         bg-white
@@ -81,10 +82,7 @@
           required
           v-model="state[state.dialogType].pet.category"
           labelPosition="top"
-          :items="[
-            { text: 'Dog', value: 'dog' },
-            { text: 'Cat', value: 'cat' },
-          ]"
+          :items="state.categories"
         />
       </form>
     </div>

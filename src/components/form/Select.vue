@@ -32,6 +32,7 @@
           shadow
           leading-tight
           focus:outline-none focus:shadow-outline
+          cursor-pointer
           ${error ? 'border-red-500' : ''}`"
           :id="name"
           :placeholder="placeholder"
