@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <component :is="layout">
+    <template #default>
+      <router-view />
+    </template>
+  </component>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { watch, ref, provide } from "vue";
+
+import BaseLayout from "@/layout/BaseLayout";
+import Layout from "@/layout/Layout";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
-</script>
+    BaseLayout,
+    Layout,
+  },
+  setup() {
+    const loggedIn = ref(localStorage.getItem("is-authenticated") === "true");
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+    const loginSuccessfulCallback = () => (loggedIn.value = true);
+
+    provide("loginSuccessfulCallback", loginSuccessfulCallback);
+
+    const layout = ref(loggedIn.value ? "layout" : "base-layout");
+
+    watch(
+      () => loggedIn.value,
+      (isLoggedIn) => {
+        layout.value = isLoggedIn ? "layout" : "base-layout";
+      }
+    );
+
+    return { layout };
+  },
+};
+</script>
