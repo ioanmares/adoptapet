@@ -9,9 +9,8 @@
     <div
       class="
         ml-4
-        mr-3.5
+        mr-3
         mb-1.5
-        sm:mr-6
         text-xs
         md:text-sm
         rounded
