@@ -1,11 +1,30 @@
 <template>
-  <div class="w-4/6 my-2">
+  <div class="w-4/6 my-2 flex justify-between items-center">
     <Input
       className="border border-green-300 hover:border-blue-300"
       name="search"
       placeholder="Search for a pet.."
       @change="debouncedSearch"
     />
+    <div
+      class="
+        ml-4
+        mr-3.5
+        mb-1.5
+        sm:mr-6
+        text-xs
+        md:text-sm
+        rounded
+        p-1
+        md:p-2
+        bg-white
+        text-gray-500
+        cursor-pointer
+        hover:bg-green-400
+      "
+    >
+      Add a new pet
+    </div>
   </div>
   <div
     class="
@@ -33,12 +52,13 @@
     v-if="state.dialogType"
     v-bind="state[state.dialogType]"
     @close="state[state.dialogType].open = false"
+    @confirm="handleConfirm"
   >
-    <form class="">
-      <div
-        v-if="['addDialog', 'editDialog'].includes(state.dialogType)"
-        class="flex flex-col px-2 mb-8 min-w-250 md:min-w-400"
-      >
+    <div
+      v-if="['addDialog', 'editDialog'].includes(state.dialogType)"
+      class="flex flex-col px-2 mb-8 min-w-250 md:min-w-400"
+    >
+      <form>
         <Input
           name="name"
           label="Name"
@@ -66,22 +86,18 @@
             { text: 'Cat', value: 'cat' },
           ]"
         />
-      </div>
-    </form>
+      </form>
+    </div>
   </CustomModal>
 </template>
 
 <script>
-import { onMounted, reactive } from "vue";
-
-import PetService from "@/services/PetService";
-
 import Card from "@/components/Card";
 import Input from "@/components/form/Input";
 import Select from "@/components/form/Select";
 import CustomModal from "@/components/CustomModal";
 
-import debounce from "lodash/debounce";
+import { usePetDetails } from "@/pages/home/use-pet-details";
 
 export default {
   name: "Home",
@@ -92,64 +108,19 @@ export default {
     CustomModal,
   },
   setup() {
-    const state = reactive({
-      pets: [],
-      confirmationDialog: {
-        open: false,
-        title: "",
-        message:
-          "One of our team members will contact you soon for further details.",
-        titleTemplate: "You're going to adopt {name}!",
-      },
-      addDialog: {
-        open: false,
-        title: "Add a new pet for adoption",
-      },
-      editDialog: {
-        open: false,
-        title: "Edit pet details",
-      },
-      filteredPets: [],
-      dialogType: "",
-    });
-
-    onMounted(async () => {
-      state.pets = state.filteredPets = await PetService.getList();
-    });
-
-    const handleAdoptPet = async ({ id, name }) => {
-      // send data to backend
-      await PetService.requestAdoption(id);
-
-      state.confirmationDialog.title =
-        state.confirmationDialog.titleTemplate.replace("{name}", name);
-      state.confirmationDialog.open = true;
-      state.dialogType = "confirmationDialog";
-    };
-
-    const handleEditDetails = (id) => {
-      state.editDialog.pet = state.pets.find((p) => p.id === id);
-      state.editDialog.open = true;
-      state.editDialog.btnLabel = "Confirm";
-      state.dialogType = "editDialog";
-    };
-
-    const debouncedSearch = debounce((searchValue) => {
-      if (!searchValue) {
-        state.filteredPets = state.pets;
-      } else {
-        state.filteredPets = state.pets.filter((p) =>
-          Object.keys(p)
-            .filter((k) => typeof p[k] === "string" && k !== "id")
-            .some((k) => p[k].toLowerCase().includes(searchValue.toLowerCase()))
-        );
-      }
-    }, 300);
+    const {
+      state,
+      debouncedSearch,
+      handleAdoptPet,
+      handleEditDetails,
+      handleConfirm,
+    } = usePetDetails();
 
     return {
       state,
       handleAdoptPet,
       handleEditDetails,
+      handleConfirm,
       debouncedSearch,
     };
   },
